@@ -7,7 +7,7 @@ release: nginx srs
 nginx: 
 	docker run \
 	--restart=always \
-	--name nginx -d --rm \
+	--name nginx -d  \
 	-p 80:80 \
 	-v $(PWD)/html:/usr/share/nginx/html:ro \
 	-v $(PWD)/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
@@ -16,6 +16,26 @@ nginx:
 srs: 
 	docker run \
 	--restart=always \
+	--name srs  -d \
+	-p 1935:1935 -p 1985:1985 -p 8080:8080 \
+	-v $(PWD)/conf/srs.conf:/usr/local/srs/conf/srs.conf \
+	-v $(PWD)/logs/srs.log:/usr/local/srs/objs/srs.log \
+	ossrs/srs:3
+
+
+debug: nginx_d srs_d
+	echo "build"
+
+nginx_d: 
+	docker run \
+	--name nginx -d --rm \
+	-p 80:80 \
+	-v $(PWD)/html:/usr/share/nginx/html:ro \
+	-v $(PWD)/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
+	nginx
+
+srs_d: 
+	docker run \
 	--name srs --rm -d \
 	-p 1935:1935 -p 1985:1985 -p 8080:8080 \
 	-v $(PWD)/conf/srs.conf:/usr/local/srs/conf/srs.conf \
