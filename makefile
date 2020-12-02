@@ -6,7 +6,6 @@ build: nginx srs
 	echo "build"
 
 nginx: 
-	docker rm nginx
 	docker run \
 	--name nginx -d --rm \
 	-p 80:80 \
@@ -15,13 +14,12 @@ nginx:
 	nginx
 
 srs: 
-	docker srs
 	docker run \
-	-- name srs --rm \
+	--name srs --rm \
 	-p 1935:1935 -p 1985:1985 -p 8080:8080 \
-    -v $(PWD)/conf/srs.conf:/usr/local/srs/conf/srs.conf \
-    -v $(PWD)/logs/srs.log:/usr/local/srs/objs/srs.log \
-    ossrs/srs:3
+	-v $(PWD)/conf/srs.conf:/usr/local/srs/conf/srs.conf \
+	-v $(PWD)/logs/srs.log:/usr/local/srs/objs/srs.log \
+	ossrs/srs:3
 
 
 	
