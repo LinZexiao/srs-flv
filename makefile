@@ -15,7 +15,7 @@ nginx:
 
 srs: 
 	docker run \
-	--name srs --rm \
+	--name srs --rm -d \
 	-p 1935:1935 -p 1985:1985 -p 8080:8080 \
 	-v $(PWD)/conf/srs.conf:/usr/local/srs/conf/srs.conf \
 	-v $(PWD)/logs/srs.log:/usr/local/srs/objs/srs.log \
