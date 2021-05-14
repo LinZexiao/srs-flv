@@ -29,21 +29,27 @@
     </div>
 
     <script src="dist/flv.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+                //获取 ip
+        //console.log( document.location)
+        let hostname = document.location.hostname
+        console.log(hostname)
         //加载mds 和 cfg
         console.log('isSupported: ' + flvjs.isSupported());
         var mediaDataSource = {
             "type": "flv",
             "isLive": true,
             "hasAudio": false,
-            "url": "http://47.114.165.39:8080/live/stream.flv"
+            "url": "http://"+ hostname+ ":8080/live/stream.flv"
         }
 
         var config = {
             enableWorker: false,
             seekType: 'range',
         }
+
 
         // attach log
         var logcatbox = document.getElementsByName('logcatbox')[0];
@@ -97,5 +103,7 @@
             player.currentTime = parseFloat(input.value);
         }
     </script>
+
+    <script src="/control.js"></script>
 
 </body>
